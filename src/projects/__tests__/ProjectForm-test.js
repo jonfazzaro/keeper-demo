@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { Project } from '../Project';
+import {render, screen} from '@testing-library/react';
+import {MemoryRouter} from 'react-router-dom';
+import {Project} from '../Project';
 import ProjectForm from '../ProjectForm';
-import { Provider } from 'react-redux';
-import { store } from '../../state';
+import {Provider} from 'react-redux';
+import {store} from '../../state';
 import userEvent from '@testing-library/user-event';
+import {saveProject} from '../state/projectActions'
 
 describe('<ProjectForm />', () => {
   let project;
@@ -16,6 +17,8 @@ describe('<ProjectForm />', () => {
   let budgetTextBox;
 
   beforeEach(() => {
+    saveProject.mockClear()
+    saveProject.mockImplementation(p => p)
     project = new Project({
       id: 1,
       name: 'Mission Impossible',
@@ -108,4 +111,30 @@ describe('<ProjectForm />', () => {
     await user.type(budgetTextBox, '1');
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
+
+  it('should not submit given validation issues', async () => {
+    setup();
+    const user = userEvent.setup();
+    await user.clear(nameTextBox);
+    await user.type(nameTextBox, 'ab');
+    await user.click(screen.getByText('Save'))
+    expect(saveProject).not.toHaveBeenCalled()
+  });
+
+
+  it('should submit when saved', async () => {
+    setup();
+    const user = userEvent.setup();
+    await user.clear(nameTextBox);
+    await user.type(nameTextBox, 'dave');
+    await user.click(screen.getByText('Save'))
+    expect(saveProject).toHaveBeenCalled()
+  });
+
 });
+
+jest.mock('../state/projectActions')
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: () => jest.fn()
+}))
