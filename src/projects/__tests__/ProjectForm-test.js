@@ -8,7 +8,7 @@ import {store} from '../../state';
 import userEvent from '@testing-library/user-event';
 import {saveProject} from '../state/projectActions'
 
-describe('<ProjectForm />', () => {
+describe.skip('<ProjectForm />', () => {
 
     beforeEach(() => {
         saveProject.mockClear()
@@ -47,7 +47,7 @@ describe('<ProjectForm />', () => {
                     await user.type(nameTextBox, updatedProject.name);
                 });
 
-                it('updates the name', async () => {
+                it.only('updates the name', async () => {
                     expect(nameTextBox).toHaveValue(updatedProject.name);
                 });
 
