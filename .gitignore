@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+/.idea/.gitignore
+/.idea/keeptrack-js.iml
+/.idea/modules.xml
+/.idea/JetClient/state.xml
+/.idea/vcs.xml
