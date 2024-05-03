@@ -103,5 +103,15 @@ export function useProjectForm(initialProject) {
         })
     }
 
-    return {project, errors, handleSubmit, handleChange, changeBudget, changeDescription, changeName};
+    function changeActiveStatus(value) {
+        handleChange({
+            target: {
+                type: 'checkbox',
+                name: 'isActive',
+                checked: value
+            }
+        })
+    }
+
+    return {project, errors, handleSubmit, changeBudget, changeDescription, changeName, changeActiveStatus};
 }

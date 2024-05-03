@@ -2,6 +2,7 @@ import {act, renderHook} from '@testing-library/react';
 import {Project} from '../Project';
 import {saveProject} from '../state/projectActions'
 import {useProjectForm} from '../useProjectForm';
+import {handleRequest} from "msw";
 
 describe('useProjectForm', () => {
     let subject;
@@ -82,6 +83,20 @@ describe('useProjectForm', () => {
                         });
                     });
                 });
+
+            });
+
+            describe('the status', () => {
+                beforeEach(async () => {
+                    await act(() => {
+                        subject.current.changeActiveStatus(false)
+                    });
+                });
+
+                it('updates the status', async () => {
+                    expect(subject.current.project.isActive).toEqual(false)
+                });
+
             });
 
             describe('the description', () => {
@@ -175,6 +190,7 @@ function arrangeProject() {
         name: 'Mission Impossible',
         description: 'This is really difficult',
         budget: 100,
+        isActive: true
     });
 }
 

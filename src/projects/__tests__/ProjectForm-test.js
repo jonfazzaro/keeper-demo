@@ -47,7 +47,7 @@ describe('<ProjectForm />', () => {
                     await user.type(nameTextBox, updatedProject.name);
                 });
 
-                it.only('updates the name', async () => {
+                it('updates the name', async () => {
                     expect(nameTextBox).toHaveValue(updatedProject.name);
                 });
 

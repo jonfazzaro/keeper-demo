@@ -4,7 +4,7 @@ import {Project} from './Project';
 import {useProjectForm} from "./useProjectForm";
 
 function ProjectForm({ project: initialProject, onCancel }) {
-  const {project, errors, handleSubmit, handleChange, changeBudget, changeDescription, changeName} = useProjectForm(initialProject);
+  const {project, errors, handleSubmit, changeBudget, changeDescription, changeName, changeActiveStatus} = useProjectForm(initialProject);
 
   return (
     <form
@@ -62,7 +62,7 @@ function ProjectForm({ project: initialProject, onCancel }) {
         type="checkbox"
         name="isActive"
         checked={project.isActive}
-        onChange={handleChange}
+        onChange={e => changeActiveStatus(e.target.checked)}
       />
       <div className="input-group">
         <button className="primary bordered medium">Save</button>
