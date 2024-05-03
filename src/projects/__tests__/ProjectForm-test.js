@@ -8,7 +8,7 @@ import {store} from '../../state';
 import userEvent from '@testing-library/user-event';
 import {saveProject} from '../state/projectActions'
 
-describe.skip('<ProjectForm />', () => {
+describe('<ProjectForm />', () => {
 
     beforeEach(() => {
         saveProject.mockClear()

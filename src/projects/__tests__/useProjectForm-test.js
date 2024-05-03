@@ -1,4 +1,4 @@
-import {act, renderHook } from '@testing-library/react';
+import {act, renderHook} from '@testing-library/react';
 import {Project} from '../Project';
 import {saveProject} from '../state/projectActions'
 import {useProjectForm} from '../useProjectForm';
@@ -23,7 +23,7 @@ describe('useProjectForm', () => {
         });
 
         describe('when editing', () => {
-            describe.only('the name', () => {
+            describe('the name', () => {
                 beforeEach(async () => {
                     await changeName('Ghost Protocol');
                 });
@@ -84,7 +84,7 @@ describe('useProjectForm', () => {
                 });
             });
 
-            describe.only('the description', () => {
+            describe('the description', () => {
                 beforeEach(async () => {
                     await changeDescription('')
                     await changeDescription(updatedProject.description)
@@ -128,38 +128,22 @@ describe('useProjectForm', () => {
         });
     });
 
-    async function changeText(field, value) {
-        await act(() => {
-            subject.current.handleChange({
-                target: {
-                    type: 'text',
-                    name: field,
-                    value: value,
-                    checked: false
-                }
-            })
-        });
-    }
-
     async function changeBudget(value) {
         await act(() => {
-            subject.current.handleChange({
-                target: {
-                    type: 'number',
-                    name: 'budget',
-                    value: value,
-                    checked: false
-                }
-            })
+            subject.current.changeBudget(value)
         });
     }
 
     async function changeName(value) {
-        await changeText('name', value);
+        await act(() => {
+            subject.current.changeName(value);
+        });
     }
 
     async function changeDescription(value) {
-        await changeText('description', value);
+        await act(() => {
+            subject.current.changeDescription(value);
+        });
     }
 
     async function submitForm() {

@@ -70,5 +70,38 @@ export function useProjectForm(initialProject) {
         );
     }
 
-    return {project, errors, handleSubmit, handleChange};
+    function changeBudget(value) {
+        handleChange({
+            target: {
+                type: 'number',
+                name: 'budget',
+                value: value,
+                checked: false
+            }
+        })
+    }
+
+    function changeName(value) {
+        handleChange({
+            target: {
+                type: 'text',
+                name: 'name',
+                value: value,
+                checked: false
+            }
+        })
+    }
+
+    function changeDescription(value) {
+        handleChange({
+            target: {
+                type: 'text',
+                name: 'description',
+                value: value,
+                checked: false
+            }
+        })
+    }
+
+    return {project, errors, handleSubmit, handleChange, changeBudget, changeDescription, changeName};
 }

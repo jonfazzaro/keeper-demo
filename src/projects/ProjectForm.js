@@ -4,7 +4,7 @@ import {Project} from './Project';
 import {useProjectForm} from "./useProjectForm";
 
 function ProjectForm({ project: initialProject, onCancel }) {
-  const {project, errors, handleSubmit, handleChange} = useProjectForm(initialProject);
+  const {project, errors, handleSubmit, handleChange, changeBudget, changeDescription, changeName} = useProjectForm(initialProject);
 
   return (
     <form
@@ -20,7 +20,7 @@ function ProjectForm({ project: initialProject, onCancel }) {
         name="name"
         placeholder="enter name"
         value={project.name}
-        onChange={handleChange}
+        onChange={e => changeName(e.target.value)}
       />
       {errors.name.length > 0 && (
         <div role="alert" className="card error">
@@ -34,7 +34,7 @@ function ProjectForm({ project: initialProject, onCancel }) {
         aria-label="project description"
         placeholder="enter description"
         value={project.description}
-        onChange={handleChange}
+        onChange={e => changeDescription(e.target.value)}
       />
       {errors.description.length > 0 && (
         <div role="alert" className="card error">
@@ -49,7 +49,7 @@ function ProjectForm({ project: initialProject, onCancel }) {
         name="budget"
         placeholder="enter budget"
         value={project.budget}
-        onChange={handleChange}
+        onChange={e => changeBudget(e.target.value)}
       />
       {errors.budget.length > 0 && (
         <div role="alert" className="card error">
