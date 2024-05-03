@@ -2,7 +2,6 @@ import {act, renderHook} from '@testing-library/react';
 import {Project} from '../Project';
 import {saveProject} from '../state/projectActions'
 import {useProjectForm} from '../useProjectForm';
-import {handleRequest} from "msw";
 
 describe('useProjectForm', () => {
     let subject;
