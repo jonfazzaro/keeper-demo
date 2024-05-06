@@ -4,6 +4,7 @@ import ProjectsPage from './projects/ProjectsPage';
 import ProjectPage from './projects/ProjectPage';
 import { Provider } from 'react-redux';
 import { store } from './state';
+import clock from "./clock";
 
 import {
   BrowserRouter as Router,
@@ -30,6 +31,7 @@ function App() {
           </NavLink>
         </header>
         <div className="container">
+          <h3 data-testid='greeting'>{greeting()}</h3>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/projects" element={<ProjectsPage />} />
@@ -39,6 +41,17 @@ function App() {
       </Router>
     </Provider>
   );
+
+  function greeting() {
+    const currentHour = clock.hour();
+    if (currentHour < 4) return "Isn't it past your bedtime?";
+    if (currentHour < 6) return "You're up early!";
+    if (currentHour < 12) return "Good morning!";
+    if (currentHour < 17) return "Good afternoon!";
+    if (currentHour < 22) return "Good evening!";
+    return "Isn't it past your bedtime?";
+  }
+
 }
 
 export default App;
