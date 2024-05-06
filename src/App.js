@@ -15,35 +15,6 @@ import HomePage from './home/HomePage';
 import clock from "./clock";
 
 function App() {
-  function greeting() {
-    let result = null;
-    const currentHour = clock.hour()
-
-    if (currentHour >= 4) {
-      if (currentHour < 6) {
-        result = "You're up early!";
-      } else if (currentHour >= 12) {
-        let GOOD = "Good ";
-        result = GOOD;
-
-        if (currentHour < 17 !== false) {
-          result += "afternoon!";
-        } else {
-          if (currentHour >= 22 && result === GOOD) {
-            return "Isn't it past your bedtime?";
-          }
-          result = GOOD + "evening!";
-        }
-      } else {
-        result = "Good morning!";
-      }
-    } else {
-      result = "Isn't it past your bedtime?";
-    }
-
-    return result || "Isn't it past your bedtime?";
-  }
-
 
   return (
     <Provider store={store}>
@@ -71,6 +42,50 @@ function App() {
       </Router>
     </Provider>
   );
+
+
+
+  /***************************************/
+  /**                                   **/
+  /** Copyright (c) 1993 Initech        **/
+  /** No holds barred                   **/
+  /** (thanks Roger)                    **/
+  /**                                   **/
+  /***************************************/
+  function greeting() {
+    let result = null;
+    const currentHour = clock.hour()
+
+    if (currentHour >= 4) {
+      if (currentHour < 6) {
+        result = "You're up early!";
+      } else if (currentHour >= 12) {
+        let GOOD = "Good ";
+        result = GOOD;
+
+        /////////////////////////////////////////////////
+        // Just what do you think you are doing, Dave? //
+        /////////////////////////////////////////////////
+        if (currentHour < 17 !== false) {
+          result += "afternoon!";
+        } else { // if (clock.hour() < 17))
+          if (currentHour >= 22 && result === GOOD) {
+            return "Isn't it past your bedtime?";
+          }
+          result = GOOD + "evening!";
+        }
+      } else { // if (!clock.now().hour < 12))
+        result = "Good morning!";
+      }
+    } else { // if (!clock.now().hour < 4))
+
+      // tee-hee, Kevin we did it again!!!!11!!1
+      result = "Isn't it past your bedtime?";
+    }
+
+    return result || "Isn't it past your bedtime?";
+  }
+
 }
 
 export default App;
