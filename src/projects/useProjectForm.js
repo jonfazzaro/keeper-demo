@@ -18,28 +18,11 @@ export function useProjectForm(initialProject) {
         dispatch(saveProject(project));
     };
 
-    function handleChange(event) {
-        const {type, name, value, checked} = event.target;
-        // if input type is checkbox use checked
-        // otherwise it's type is text, number etc. so use value
-        let updatedValue = type === 'checkbox' ? checked : value;
-
-        //if input type is number convert the updatedValue string to a +number
-        if (type === 'number') {
-            updatedValue = Number(updatedValue);
-        }
-        const change = {
-            [name]: updatedValue,
-        };
-
+    function update(field, value) {
         let updatedProject;
-        // need to do functional update b/c
-        // the new project state is based on the previous project state
-        // so we can keep the project properties that aren't being edited +like project.id
-        // the spread operator (...) is used to
-        // spread the previous project properties and the new change
         setProject((p) => {
-            updatedProject = new Project({...p, ...change});
+            p[field] = value
+            updatedProject = new Project({...p});
             return updatedProject;
         });
         setErrors(() => validate(updatedProject));
@@ -71,46 +54,19 @@ export function useProjectForm(initialProject) {
     }
 
     function changeBudget(value) {
-        handleChange({
-            target: {
-                type: 'number',
-                name: 'budget',
-                value: value,
-                checked: false
-            }
-        })
+        update('budget', Number(value));
     }
 
     function changeName(value) {
-        handleChange({
-            target: {
-                type: 'text',
-                name: 'name',
-                value: value,
-                checked: false
-            }
-        })
+        update('name', value);
     }
 
     function changeDescription(value) {
-        handleChange({
-            target: {
-                type: 'text',
-                name: 'description',
-                value: value,
-                checked: false
-            }
-        })
+        update('description', value);
     }
 
     function changeActiveStatus(value) {
-        handleChange({
-            target: {
-                type: 'checkbox',
-                name: 'isActive',
-                checked: value
-            }
-        })
+        update('isActive', value);
     }
 
     return {project, errors, handleSubmit, changeBudget, changeDescription, changeName, changeActiveStatus};
