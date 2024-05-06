@@ -12,8 +12,39 @@ import {
   Routes,
 } from 'react-router-dom';
 import HomePage from './home/HomePage';
+import clock from "./clock";
 
 function App() {
+  function greeting() {
+    let result = null;
+    const currentHour = clock.hour()
+
+    if (currentHour >= 4) {
+      if (currentHour < 6) {
+        result = "You're up early!";
+      } else if (currentHour >= 12) {
+        let GOOD = "Good ";
+        result = GOOD;
+
+        if (currentHour < 17 !== false) {
+          result += "afternoon!";
+        } else {
+          if (currentHour >= 22 && result === GOOD) {
+            return "Isn't it past your bedtime?";
+          }
+          result = GOOD + "evening!";
+        }
+      } else {
+        result = "Good morning!";
+      }
+    } else {
+      result = "Isn't it past your bedtime?";
+    }
+
+    return result || "Isn't it past your bedtime?";
+  }
+
+
   return (
     <Provider store={store}>
       <Router>
@@ -30,10 +61,11 @@ function App() {
           </NavLink>
         </header>
         <div className="container">
+          <h3 data-testid='greeting'>{greeting()}</h3>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/projects" element={<ProjectsPage />} />
-            <Route path="/projects/:id" element={<ProjectPage />} />
+            <Route path="/" element={<HomePage/>}/>
+            <Route path="/projects" element={<ProjectsPage/>}/>
+            <Route path="/projects/:id" element={<ProjectPage/>}/>
           </Routes>
         </div>
       </Router>
