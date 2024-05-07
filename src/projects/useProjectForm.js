@@ -69,5 +69,13 @@ export function useProjectForm(initialProject) {
         update('isActive', value);
     }
 
-    return {project, errors, handleSubmit, changeBudget, changeDescription, changeName, changeActiveStatus};
+    return {
+        project,
+        errors,
+        handleSubmit,
+        changeBudget,
+        changeDescription,
+        changeName,
+        changeActiveStatus
+    };
 }
