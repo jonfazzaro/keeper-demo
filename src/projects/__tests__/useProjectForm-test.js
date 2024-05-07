@@ -19,7 +19,13 @@ describe('useProjectForm', () => {
         });
 
         it('loads it into the form', () => {
-            expect(subject.current.project.id).toEqual(1)
+            expect(subject.current.project).toEqual(expect.objectContaining({
+                id: 1,
+                name: "Mission Impossible",
+                budget: 100,
+                description: "This is really difficult",
+                isActive: true,
+            }))
         });
 
         describe('when editing', () => {
@@ -189,7 +195,7 @@ function arrangeProject() {
         name: 'Mission Impossible',
         description: 'This is really difficult',
         budget: 100,
-        isActive: true
+        isActive: true,
     });
 }
 
