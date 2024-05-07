@@ -7,7 +7,6 @@ import {Provider} from 'react-redux';
 import {store} from '../../state';
 import userEvent from '@testing-library/user-event';
 import {saveProject} from '../state/projectActions'
-import "react-datepicker/dist/react-datepicker.css";
 
 describe('<ProjectForm />', () => {
 

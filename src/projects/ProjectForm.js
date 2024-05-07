@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Project } from './Project';
 import { useDispatch } from 'react-redux';
 import { saveProject } from './state/projectActions';
+import "react-datepicker/dist/react-datepicker.css";
 
 function ProjectForm({ project: initialProject, onCancel }) {
   const [project, setProject] = useState(initialProject);
