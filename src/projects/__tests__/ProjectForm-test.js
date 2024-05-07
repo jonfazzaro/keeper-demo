@@ -171,6 +171,7 @@ function arrangeProject() {
         name: 'Mission Impossible',
         description: 'This is really difficult',
         budget: 100,
+        contractSignedOn: "2013-08-04T22:39:41.473Z"
     });
 }
 
