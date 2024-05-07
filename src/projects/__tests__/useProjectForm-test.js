@@ -196,6 +196,7 @@ function arrangeProject() {
         description: 'This is really difficult',
         budget: 100,
         isActive: true,
+        contractSignedOn: "2014-03-06T00:00:00.000Z"
     });
 }
 

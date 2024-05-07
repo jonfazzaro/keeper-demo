@@ -57,6 +57,12 @@ export function useProjectForm(initialProject) {
         update('budget', Number(value));
     }
 
+    function toISODateString(value) {
+        const date = new Date(value)
+        date.setUTCHours(0, 0, 0, 0)
+        return date.toISOString();
+    }
+
     function changeName(value) {
         update('name', value);
     }
