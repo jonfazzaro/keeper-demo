@@ -5,7 +5,15 @@ import {useProjectForm} from "./useProjectForm";
 import "react-datepicker/dist/react-datepicker.css";
 
 function ProjectForm({ project: initialProject, onCancel }) {
-  const {project, errors, handleSubmit, changeBudget, changeDescription, changeName, changeActiveStatus} = useProjectForm(initialProject);
+  const {
+    project,
+    errors,
+    handleSubmit,
+    changeBudget,
+    changeDescription,
+    changeName,
+    changeActiveStatus
+  } = useProjectForm(initialProject);
 
   return (
       <form
