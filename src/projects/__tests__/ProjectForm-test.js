@@ -32,6 +32,7 @@ describe('<ProjectForm />', () => {
                 description: project.description,
                 budget: project.budget,
                 isActive: project.isActive,
+                contractSignedOn: "2013-08-04"
             });
         });
 
@@ -115,6 +116,29 @@ describe('<ProjectForm />', () => {
                 });
             });
 
+            describe('the signed-on date', () => {
+                beforeEach(async () => {
+                    await user.clear(signedOnTextBox);
+                    await user.type(signedOnTextBox, "2024-01-01");
+                });
+
+                it('updates the date', async () => {
+                    expect(signedOnTextBox).toHaveValue("2024-01-01");
+                });
+
+                describe('and submitting', () => {
+                    beforeEach(async () => {
+                        await user.click(screen.getByText('Save'))
+                    });
+
+                    it('should submit when saved', async () => {
+                        expect(saveProject).toHaveBeenCalledWith(expect.objectContaining({
+                            contractSignedOn: "2024-01-01T00:00:00.000Z"
+                        }))
+                    });
+                });
+            });
+
             describe('the budget', () => {
                 beforeEach(async () => {
                     await user.clear(budgetTextBox);
@@ -162,6 +186,7 @@ let handleCancel;
 let nameTextBox;
 let descriptionTextBox;
 let budgetTextBox;
+let signedOnTextBox;
 saveProject.mockImplementation(p => p)
 handleCancel = jest.fn();
 
@@ -201,4 +226,8 @@ function renderProjectForm() {
     budgetTextBox = screen.getByRole('spinbutton', {
         name: /project budget/i,
     });
+    signedOnTextBox = screen.getByTestId('contractSignedOn');
+    // signedOnTextBox = screen.getByRole('textbox', {
+    //     name: /contract signed/i,
+    // });
 }
