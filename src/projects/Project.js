@@ -5,7 +5,7 @@ export class Project {
     this.description = '';
     this.imageUrl = '';
     this.contractTypeId = null;
-    this.contractSignedOn = new Date();
+    this.contractSignedOn = null;
     this.budget = 0;
     this.isActive = false;
 
