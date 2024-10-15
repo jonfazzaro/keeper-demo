@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {act, fireEvent, render, screen} from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom';
 import {Project} from '../Project';
 import ProjectForm from '../ProjectForm';
@@ -32,6 +32,7 @@ describe('<ProjectForm />', () => {
                 description: project.description,
                 budget: project.budget,
                 isActive: project.isActive,
+                contractSignedOn: "2013-08-04"
             });
         });
 
@@ -115,6 +116,29 @@ describe('<ProjectForm />', () => {
                 });
             });
 
+            describe('the signed on', () => {
+                beforeEach(async () => {
+                    await user.type(signedOnDateInput, "2024-01-01");
+                });
+
+                it.todo('sets the active flag');
+            });
+
+            describe('the active flag', () => {
+                it('updates the flag', async () => {
+                    await user.click(activeCheckBox)
+                    expect(activeCheckBox).toBeChecked();
+                });
+
+                describe('given a signed on date', () => {
+                    it.todo("clears the signed on date");
+                });
+
+                describe('given no signed on date', () => {
+                    it.todo("sets the signed on date to today");
+                });
+            });
+
             describe('the budget', () => {
                 beforeEach(async () => {
                     await user.clear(budgetTextBox);
@@ -161,6 +185,8 @@ let updatedProject;
 let handleCancel;
 let nameTextBox;
 let descriptionTextBox;
+let signedOnDateInput;
+let activeCheckBox;
 let budgetTextBox;
 saveProject.mockImplementation(p => p)
 handleCancel = jest.fn();
@@ -171,6 +197,7 @@ function arrangeProject() {
         name: 'Mission Impossible',
         description: 'This is really difficult',
         budget: 100,
+        active: false,
         contractSignedOn: "2013-08-04T22:39:41.473Z"
     });
 }
@@ -201,4 +228,8 @@ function renderProjectForm() {
     budgetTextBox = screen.getByRole('spinbutton', {
         name: /project budget/i,
     });
+    signedOnDateInput = screen.getByTestId("contractSignedOn");
+    activeCheckBox = screen.getByRole("checkbox", {
+        name: /active/i,
+    })
 }
