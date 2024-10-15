@@ -34,10 +34,6 @@ function ProjectForm({project: initialProject, onCancel}) {
         if (type === 'number') {
             change[name] = Number(updatedValue);
         }
-        if (type === 'date') {
-            change[name] = updatedValue;
-        }
-
 
         let updatedProject;
         // need to do functional update b/c
