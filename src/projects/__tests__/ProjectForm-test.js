@@ -130,12 +130,16 @@ describe('<ProjectForm />', () => {
                     expect(activeCheckBox).toBeChecked();
                 });
 
-                describe('given a signed on date', () => {
-                    it.todo("clears the signed on date");
+                describe('to false', () => {
+                    describe('given a signed on date', () => {
+                        it.todo("clears the signed on date");
+                    });
                 });
 
-                describe('given no signed on date', () => {
-                    it.todo("sets the signed on date to today");
+                describe('to true', () => {
+                    describe('given no signed on date', () => {
+                        it.todo("sets the signed on date to today");
+                    });
                 });
             });
 
