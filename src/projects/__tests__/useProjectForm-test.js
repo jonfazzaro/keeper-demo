@@ -1,7 +1,7 @@
 import {act, renderHook} from '@testing-library/react';
 import {Project} from '../Project';
 import {saveProject} from '../state/projectActions'
-import {useProjectForm} from '../useProjectForm';
+import {useProjectForm, ymd} from '../useProjectForm';
 
 describe('useProjectForm', () => {
     let subject;
@@ -24,7 +24,7 @@ describe('useProjectForm', () => {
                 name: "Mission Impossible",
                 budget: 100,
                 description: "This is really difficult",
-                isActive: true,
+                isActive: false,
             }))
         });
 
@@ -115,6 +115,47 @@ describe('useProjectForm', () => {
                 });
             });
 
+            describe('the signed on date', () => {
+                beforeEach(async () => {
+                    await changeSignedOn('')
+                    await changeSignedOn("2024-01-01")
+                });
+
+                it('updates the description', async () => {
+                    expect(subject.current.project.contractSignedOn).toEqual("2024-01-01");
+                });
+
+                it.todo("sets the active flag")
+
+                describe('in the future', () => {
+                    it.todo("unsets the active flag")
+                });
+            });
+
+            describe('the active flag', () => {
+                describe('to false', () => {
+                    it('sets the flag', async () => {
+                        await changeActiveStatus(false)
+                        expect(subject.current.project.isActive).toEqual(false)
+                    });
+
+                    describe('given a signed on date', () => {
+                        it.todo("clears the date")
+                    });
+                });
+
+                describe('to true', () => {
+                    it('sets the flag', async () => {
+                        await changeActiveStatus(true)
+                        expect(subject.current.project.isActive).toEqual(true)
+                    });
+
+                    describe('given no signed on date', () => {
+                        it.todo("sets the date to today")
+                    });
+                });
+            });
+
             describe('the budget', () => {
                 beforeEach(async () => {
                     await changeBudget('')
@@ -166,6 +207,18 @@ describe('useProjectForm', () => {
         });
     }
 
+    async function changeActiveStatus(value) {
+        await act(() => {
+            subject.current.changeActiveStatus(value);
+        });
+    }
+
+    async function changeSignedOn(value) {
+        await act(() => {
+            subject.current.changeSignedOn(value);
+        });
+    }
+
     async function submitForm() {
         await act(() => {
             subject.current.handleSubmit({
@@ -195,7 +248,7 @@ function arrangeProject() {
         name: 'Mission Impossible',
         description: 'This is really difficult',
         budget: 100,
-        isActive: true,
+        isActive: false,
         contractSignedOn: "2014-03-06T00:00:00.000Z"
     });
 }
@@ -210,6 +263,8 @@ function arrangeUpdatedProject() {
 
 
 function renderProjectForm() {
-    const {result} = renderHook(() => useProjectForm(project));
+    const {result} = renderHook(() => useProjectForm(project, () => today));
     return result
 }
+
+const today = ymd(new Date("2012-10-14"))
